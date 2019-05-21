@@ -24,7 +24,7 @@ export default function App() {
           value={query}
           onChange={(event) => setQuery(event.currentTarget.value)}
         />
-        {movies.map(movie => {
+        {movies && movies.map(movie => {
           return <div key={movie.id}>{movie.title}</div>
         })}
       </Grid>
