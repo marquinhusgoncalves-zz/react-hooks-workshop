@@ -2,14 +2,12 @@
 import React, { useState } from 'react';
 import { Normalize, Grid, Typography } from '@smooth-ui/core-sc';
 import SearchInput from './components/SearchInput';
-import { useMovieSearch } from './containers/MovieDb'
+import Catch from './components/Catch'
+import { MovieSearch } from './containers/MovieDb'
 
 export default function App() {
   /* TODO: With the help of "useState", you should connect the "SearchInput" field */
   const [query, setQuery] = useState(() => 'Lord of the Rings');
-
-  // The usage of the custom Hook to collect the list of movies from the API
-  const movies = useMovieSearch(query)
 
   return (
     <>
@@ -24,9 +22,14 @@ export default function App() {
           value={query}
           onChange={(event) => setQuery(event.currentTarget.value)}
         />
-        {movies && movies.map(movie => {
-          return <div key={movie.id}>{movie.title}</div>
-        })}
+        <Catch>
+          {/* Affichage de la liste de films */}
+          <MovieSearch query={query}>
+            {movies =>
+              movies && movies.map(movie => <p key={movie.id}>{movie.title}</p>)
+            }
+          </MovieSearch>
+        </Catch>
       </Grid>
     </>
   )
