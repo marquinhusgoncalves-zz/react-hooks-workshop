@@ -1,13 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import Catch from "./components/Catch";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import App from './App'
+import Catch from "./components/Catch"
+import { I18nProvider } from './components/I18n'
+import * as serviceWorker from './serviceWorker'
+import en from './locales/en.json'
+import fr from './locales/fr.json'
 
 ReactDOM.render(
   <Catch>
-    <App />
+    <I18nProvider translations={{ en, fr }} defaultLocale="en">
+      <App />
+    </I18nProvider>
   </Catch>,
   document.getElementById('root'));
 

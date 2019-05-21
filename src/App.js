@@ -1,14 +1,25 @@
 // App.js
 import React, { useState } from 'react'
-import { Row, Col, Normalize, Grid, Typography } from '@smooth-ui/core-sc'
+import {
+  Button,
+  Row,
+  Col,
+  Normalize,
+  Grid,
+  Typography
+} from '@smooth-ui/core-sc'
 import SearchInput from './components/SearchInput'
+import { useI18n, T } from './components/I18n'
 import Catch from './components/Catch'
 import { MovieSearch } from './containers/MovieDb'
 import Card from './components/Card'
 
 export default function App() {
-  /* TODO: With the help of "useState", you should connect the "SearchInput" field */
   const [query, setQuery] = useState(() => 'Lord of the Rings');
+  // Récupération de la locale et de la fonction "setLocale" depuis le contexte
+  const { setLocale, locale } = useI18n()
+  // Si on est en français, on voudra passer en anglais et inversement
+  const otherLocale = locale === 'fr' ? 'en' : 'fr'
 
   return (
     <>
@@ -16,8 +27,14 @@ export default function App() {
       <Grid py={200}>
         {/* Normalize the CSS output between the different browsers */}
         <Normalize />
+        {/* Bouton permettant de changer de langue, "my" signifie "margin-top" et "margin-bottom" */}
+        <Button my={1} onClick={() => setLocale(otherLocale)}>
+          <T id={otherLocale} />
+        </Button>
         {/* a "Typography" composant with ready to use variants */}
-        <Typography variant="display-1">Smooth Movie</Typography>
+        <Typography variant="display-1">
+          <T id="title" />
+        </Typography>
         {/* The "SearchInput" component */}
         <SearchInput
           value={query}
