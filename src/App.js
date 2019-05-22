@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useRef, useEffect } from 'react'
 import {
   Button,
@@ -9,19 +8,23 @@ import {
   Typography
 } from '@smooth-ui/core-sc'
 import SearchInput from './components/SearchInput'
-import { useI18n, T } from './components/I18n'
 import Catch from './components/Catch'
-import { MovieSearch } from './containers/MovieDb'
 import Card from './components/Card'
+import { useShortcutEffect} from './components/Shortcut'
+import { useI18n, T } from './components/I18n'
+import { MovieSearch } from './containers/MovieDb'
 
 export default function App() {
   const [query, setQuery] = useState(() => 'Lord of the Rings');
+  const searchInputRef = useRef()
   // Récupération de la locale et de la fonction "setLocale" depuis le contexte
   const { setLocale, locale } = useI18n()
   // Si on est en français, on voudra passer en anglais et inversement
   const otherLocale = locale === 'fr' ? 'en' : 'fr'
 
-  const searchInputRef = useRef()
+  useShortcutEffect('alt+f', () => {
+    searchInputRef.current.focus()
+  })
 
   useEffect(() => {
     searchInputRef.current.focus()
