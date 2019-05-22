@@ -1,11 +1,18 @@
-// SearchInput.js
-import React from 'react'
+import React, { forwardRef, useRef, useImperativeHandle } from 'react'
 import { Input } from '@smooth-ui/core-sc'
 import { useT } from './I18n'
 
-export default function SearchInput(props) {
+export default forwardRef(function SearchInput(props, ref) {
   const placeholder = useT('placeholder')
+  const inputRef = useRef()
+
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current.focus()
+    },
+  }))
+
   return (
-    <Input placeholder={placeholder} width="100%" type="search" {...props} />
+    <Input ref={inputRef} placeholder={placeholder} width="100%" type="search" {...props} />
   )
-}
+})

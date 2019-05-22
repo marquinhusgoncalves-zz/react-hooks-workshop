@@ -1,5 +1,5 @@
 // App.js
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {
   Button,
   Row,
@@ -21,6 +21,12 @@ export default function App() {
   // Si on est en français, on voudra passer en anglais et inversement
   const otherLocale = locale === 'fr' ? 'en' : 'fr'
 
+  const searchInputRef = useRef()
+
+  useEffect(() => {
+    searchInputRef.current.focus()
+  }, [searchInputRef])
+
   return (
     <>
       {/* The "Grid" component centers the child in the page, "py" means "padding-top" and "padding-bottom" */}
@@ -39,6 +45,7 @@ export default function App() {
         <SearchInput
           value={query}
           onChange={(event) => setQuery(event.currentTarget.value)}
+          ref={searchInputRef}
         />
         <Catch>
           {/* Affichage de la liste de films */}
